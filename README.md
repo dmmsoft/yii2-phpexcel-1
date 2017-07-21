@@ -55,9 +55,9 @@ $url = Phpexcel::widget([
     'models' => Upload::find()->all(),  // 必须
     'asAttachment' => false,  // 为 false 时保存到服务器
     'fileName' => time() . '.xls',  // 默认为:'excel.xls'
-    'savePath' => 'uploads/excel', // 默认为:'uploads/excel/'
+    'savePath' => 'uploads/excel/', // 默认为:'uploads/excel/'
 ]);
-// return: $url = 'uploads/excel1500597563.xls';
+// return: $url = 'uploads/excel/1500597563.xls';
 
 // 导出单个表中指定的列
 Phpexcel::widget([
