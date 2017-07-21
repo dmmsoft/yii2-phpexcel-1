@@ -105,7 +105,7 @@ class Phpexcel extends Widget
                 $worksheet[$index] = $sheet->getSheet($index);
                 $columns = isset($this->columns[$title]) ? $this->columns[$title] : [];
                 $headers = isset($this->headers[$title]) ? $this->headers[$title] : [];
-                $this->executeColumns($worksheet[$index], $model, self::populateColumns($columns), $headers);
+                self::executeColumns($worksheet[$index], $model, self::populateColumns($columns), $headers);
                 $index++;
             }
         }else{
