@@ -28,8 +28,8 @@ $asAttachment;  boolean  // 是否下载导出结果, 为 true 时则仅下载, 
 $fileName;  // 导出的文件名
 $savePath;  string  // 保存到服务器的路径, 仅 asAttachment=false 时生效
 $isMultipleSheet;  boolean  // 是否同时导出多个表, 导出多个表时必须为 true
-$formatter;
-$properties = [];
+$formatter;  // 不知用途
+$properties = [];  array  // 设置Excel文件的属性，看不出区别
 
 // 导入(import)的参数:
 $importFile;  string|array  // 导入的文件, 可以是单文件也可以是多文件的数组
