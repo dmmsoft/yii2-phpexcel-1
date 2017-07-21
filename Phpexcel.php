@@ -7,6 +7,16 @@ use yii\base\InvalidParamException;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 
+/**
+ * 基于 PHPExcel 写的 Yii2 扩展，用于将数据表导出为Excel表格，或将Excel表格的内存导入到数据库。
+ *
+ * @author  zhangmoxuan <1104984259@qq.com>
+ * @link  http://www.zhangmoxuan.com
+ * @QQ  1104984259
+ * @Date  2017-7-21
+ * @see http://phpexcel.codeplex.com/
+ * @see https://github.com/moonlandsoft/yii2-phpexcel
+ */
 class Phpexcel extends Widget
 {
     public $mode;  // 模式, 导出(export) or 导入(import)
