@@ -337,7 +337,7 @@ class Phpexcel extends Widget
                         $sheetDatas[$indexed] = self::executeArrayLabel($sheetDatas[$indexed]);
                     }
                     if(!empty($this->getOnlyRecordByIndex) && isset($this->getOnlyRecordByIndex[$indexed]) && is_array($this->getOnlyRecordByIndex[$indexed])){
-                        $sheetDatas = self::executeGetOnlyRecords($sheetDatas, $this->getOnlyRecordByIndex[$indexed]);
+                        $sheetDatas[$indexed] = self::executeGetOnlyRecords($sheetDatas[$indexed], $this->getOnlyRecordByIndex[$indexed]);
                     }
                     if(!empty($this->leaveRecordByIndex) && isset($this->leaveRecordByIndex[$indexed]) && is_array($this->leaveRecordByIndex[$indexed])){
                         $sheetDatas[$indexed] = self::executeLeaveRecords($sheetDatas[$indexed], $this->leaveRecordByIndex[$indexed]);
@@ -361,7 +361,7 @@ class Phpexcel extends Widget
     }
 
     /**
-     * 导入操作: Setting label or keys on every record if setFirstRecordAsKeys is true.
+     * 导入操作: 忽略第一行(表头)数据
      * @param array $sheetData
      * @return array
      */
@@ -376,7 +376,7 @@ class Phpexcel extends Widget
     }
 
     /**
-     * 导入操作: Read record with same index number.
+     * 导入操作: 指定仅获取某几行数据
      * @param array $sheetData
      * @param array $index
      * @return array
@@ -392,7 +392,7 @@ class Phpexcel extends Widget
     }
 
     /**
-     * 导入操作: Leave record with same index number.
+     * 导入操作: 指定忽略某几行数据
      * @param array $sheetData
      * @param array $index
      * @return array

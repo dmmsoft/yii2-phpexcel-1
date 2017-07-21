@@ -35,8 +35,8 @@ $properties = [];  array  // 设置Excel文件的属性，看不出区别
 $importFile;  string|array  // 导入的文件, 可以是单文件也可以是多文件的数组
 $setIndexSheetByName;  boolean  // 如果Excel文件中有多个表, 是否以表名(eg:sheet1,sheet2)作为键名, 为 false 时使用数字(eg:0,1,2)
 $setFirstRecordAsKeys;  boolean  // 将Excel文件中的第一行记录设置为每行数组的键, 为 false 时使用Excel的字母列(eg:A,B,C)
-$getOnlyRecordByIndex = [];  //
-$leaveRecordByIndex = [];  //
+$getOnlyRecordByIndex = [];  array  // 指定仅获取某几行数据
+$leaveRecordByIndex = [];  array  // 指定仅忽略某几行数据
 $getOnlySheet;  string  // 当Excel文件中有多个表时, 指定仅获取某个表(eg:sheet1),
 ```
 
@@ -147,5 +147,36 @@ $data = Phpexcel::widget([
     'mode' => 'import',  // 必须
     'importFile' => 'uploads/excel/excel.xls',  // 必须, 要导入的Excel文件
     'getOnlySheet' => 'sheet1',  // 默认为空
+]);
+
+// 指定获取某几行数据(单表)
+$data = Phpexcel::widget([
+    'mode' => 'import',  // 必须
+    'importFile' => 'uploads/excel/excel2.xls',  // 必须, 要导入的Excel文件
+    'getOnlyRecordByIndex' => [1,2],  //仅获取第2行和第3行数据
+]);
+
+// 指定获取某几行数据(多表)
+/*$data = Phpexcel::widget([
+    'mode' => 'import',  // 必须
+    'importFile' => 'uploads/excel/excel.xls',  // 必须, 要导入的Excel文件
+    'setIndexSheetByName' => true,  // 以表名作为键名
+    'getOnlyRecordByIndex' => [
+        'sheet1' => [1,2],  // 此表仅获取第2行和第3行数据
+        'sheet2' => [1],  // 此表仅获取第2行数据
+        //'sheet3' => [],  // 此表未设置, 获取所有数据
+    ],
+]);*/
+
+// 指定忽略某几行数据(多表)
+$data = Phpexcel::widget([
+    'mode' => 'import',  // 必须
+    'importFile' => 'uploads/excel/excel.xls',  // 必须, 要导入的Excel文件
+    'setIndexSheetByName' => true,  // 以表名作为键名
+    'leaveRecordByIndex' => [
+        'sheet1' => [1,2],  // 此表忽略第2行和第3行数据
+        'sheet2' => [1],  // 此表忽略第2行数据
+        'sheet3' => [],  // 此表未设置, 获取所有数据
+    ],
 ]);
 ```
