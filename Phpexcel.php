@@ -10,35 +10,49 @@ use yii\helpers\ArrayHelper;
 class Phpexcel extends Widget
 {
     public $mode;  // 模式, 导出(export) or 导入(import)
+    public $format;  // Excel 的版本, 值有'Excel2007', 'Excel5', 'Excel2003XML', 'OOCalc', 'SYLK', 'Gnumeric', 'HTML', 'CSV'
+
+    // 导出(export)的参数:
     public $models;  // 数据提供者, eg: Post::find()->all()
     public $columns = [];  // 从模型中获取属性, 未设置则获取该模型的所有属性
     public $headers = [];  // 设置第一行的标题栏, 未设置则获取该模型的属性标签
     public $setFirstTitle;  // 是否在第一行设置标题行
     public $asAttachment;  // 是否下载导出结果, 为 true 时则仅下载, 为 false 时仅保存结果到服务器,
-    public $format;  // 导出 Excel 的版本, 值有'Excel2007', 'Excel5', 'Excel2003XML', 'OOCalc', 'SYLK', 'Gnumeric', 'HTML', 'CSV'
     public $fileName;  // 导出的文件名
     public $savePath;  // 保存到服务器的路径, 仅 asAttachment=false 时生效
-    public $isMultipleSheet;
+    public $isMultipleSheet;  // 是否同时导出多个表, 导出多个表时必须为 true
     public $formatter;
-    public $setIndexSheetByName;
-    public $setFirstRecordAsKeys;  // 将 excel 文件中的第一个记录设置为每行数组的键
+    public $properties = [];
+
+    // 导入(import)的参数:
+    public $importFile;  // 导入的文件, 可以是单文件也可以是多文件的数组
+    public $setIndexSheetByName;  // 如果Excel文件中有多个表, 是否以表名(eg:sheet1,sheet2)作为键名, 为 false 时使用数字(eg:0,1,2)
+    public $setFirstRecordAsKeys;  // 将Excel文件中的第一行记录设置为每行数组的键, 为 false 时使用Excel的字母列(eg:A,B,C)
     public $getOnlyRecordByIndex = [];  //
     public $leaveRecordByIndex = [];  //
-    public $getOnlySheet;
-    public $properties;
+    public $getOnlySheet;  // 当Excel文件中有多个表时, 指定仅获取某个表(eg:sheet1),
 
     public function __construct(array $config = [])
     {
         $config = ArrayHelper::merge([
             'mode' => 'export',
+            'format' => 'Excel2007',
+            'models' => '',
+            //'columns' => [],
+            //'headers' => [],
             'setFirstTitle' => true,
             'asAttachment' => true,
-            'isMultipleSheet' => false,
-            'format' => 'Excel2007',
-            'savePath' => 'uploads/excel/',
             'fileName' => 'excel.xls',
-            'setFirstRecordAsKeys' => true,
+            'savePath' => 'uploads/excel/',
+            'isMultipleSheet' => false,
+            'formatter' => '',
+            //'properties' => [],
+
+            'importFile' => '',
             'setIndexSheetByName' => false,
+            'setFirstRecordAsKeys' => true,
+            //'getOnlyRecordByIndex' => [],
+            //'leaveRecordByIndex' => [],
             'getOnlySheet' => '',
         ], $config);
         parent::__construct($config);
@@ -120,14 +134,14 @@ class Phpexcel extends Widget
      */
     public function Import()
     {
-        if(is_array($this->fileName)){
+        if(is_array($this->importFile)){
             $datas = [];
-            foreach($this->fileName as $key=>$filename){
-                $datas[$key] = self::readFile($filename);
+            foreach($this->importFile as $key=>$file){
+                $datas[$key] = self::readFile($file);
             }
             return $datas;
         }else{
-            return self::readFile($this->fileName);
+            return self::readFile($this->importFile);
         }
     }
 
