@@ -1,4 +1,4 @@
-# [PHPExcel for Yii2](http://phpexcel.codeplex.com/)
+[PHPExcel for Yii2](http://phpexcel.codeplex.com/)
 ========
 基于 PHPExcel 写的 Yii2 扩展，用于将数据表导出为Excel表格，或将Excel表格的内存导入到数据库。
 
