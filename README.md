@@ -156,7 +156,7 @@ $data = Phpexcel::widget([
 ]);
 
 // 指定获取某几行数据(多表)
-/*$data = Phpexcel::widget([
+$data = Phpexcel::widget([
     'mode' => 'import',  // 必须
     'importFile' => 'uploads/excel/excel.xls',  // 必须, 要导入的Excel文件
     'setIndexSheetByName' => true,  // 以表名作为键名
@@ -165,7 +165,7 @@ $data = Phpexcel::widget([
         'sheet2' => [1],  // 此表仅获取第2行数据
         //'sheet3' => [],  // 此表未设置, 获取所有数据
     ],
-]);*/
+]);
 
 // 指定忽略某几行数据(多表)
 $data = Phpexcel::widget([
@@ -177,5 +177,15 @@ $data = Phpexcel::widget([
         'sheet2' => [1],  // 此表忽略第2行数据
         'sheet3' => [],  // 此表未设置, 获取所有数据
     ],
+]);
+
+// 同时导入多个Excel文件
+$data = Phpexcel::widget([
+    'mode' => 'import',  // 必须
+    'importFile' => [
+        'uploads/excel/excel.xls',
+        'uploads/excel/excel2.xls',
+    ],
+    'setIndexSheetByName' => true,  // 以表名作为键名
 ]);
 ```
