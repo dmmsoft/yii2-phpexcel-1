@@ -90,7 +90,7 @@ Phpexcel::widget([
     ],
 ]);
 
-// 【失败】更强的导出功能
+// 更强的导出功能: 自定义导出数据的格式
 Phpexcel::widget([
     'mode' => 'export',  // 必须
     'models' => Upload::find()->all(),  // 必须
@@ -103,16 +103,21 @@ Phpexcel::widget([
             'header' => '文件大小',
             'format' => 'text',
             'value' => function($model){
-                return Helper::byteFormat($model->file_size);
+                return Helper::byteFormat($model->file_size);  //eg:'363.38KB'
             }
         ],
-        'created_at:datetime',
+        'created_at:datetime',  //eg:'2017年5月4日 上午7:41:25'
         [
             'attribute' => 'updated_at',
-            'format' => 'date'
+            'format' => 'date'  //eg:'2017年5月4日'
+        ],
+        [
+            'attribute' => 'updated_at',
+            'header' => '最后修改时间',
+            'format' => ['date', 'php:Y-m-d'],  //eg:'2017-05-04'
         ]
     ],
-    'headers' => ['id'=>'ID', 'real_name'=>'源文件名', 'file_name'=>'新文件路径', 'file_size'=>'大小(B)'],
+    'headers' => ['id'=>'ID', 'real_name'=>'源文件名', 'file_name'=>'新文件路径'],
 ]);
 ```
 
