@@ -53,7 +53,7 @@ class Phpexcel extends Widget
             'setFirstRecordAsKeys' => true,
             //'getOnlyRecordByIndex' => [],
             //'leaveRecordByIndex' => [],
-            'getOnlySheet' => '',
+            //'getOnlySheet' => '',
         ], $config);
         parent::__construct($config);
     }
