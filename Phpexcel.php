@@ -45,7 +45,7 @@ class Phpexcel extends Widget
             'fileName' => 'excel.xls',
             'savePath' => 'uploads/excel/',
             'isMultipleSheet' => false,
-            'formatter' => '',
+            //'formatter' => '',  // 不能设置, 否则无法格式化导出内容
             //'properties' => [],
 
             'importFile' => '',
